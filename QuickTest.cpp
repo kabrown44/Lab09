@@ -6,6 +6,7 @@ using CSC2110::ListArrayIterator;
 #include "CD.h"
 using CSC2110::CD;
 
+
 void deleteCDs(ListArray<CD>* list)
 {
    ListArrayIterator<CD>* iter = list->iterator();
@@ -31,6 +32,7 @@ int main()
       CD* cd = sorted[i];
       cd->displayCD();
    }
+
 
    deleteCDs(list);
    delete list;

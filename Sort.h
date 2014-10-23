@@ -1,6 +1,9 @@
 #if !defined (SORT_H)
 #define SORT_H
 
+#include <iostream>
+using namespace std;
+
 template < class T >
 class Sort
 {
@@ -35,16 +38,16 @@ T** Sort<T>::quickSort(T** items, int numItems, int (*compare) (T* one, T* two))
    //DO THIS
    //create a new array that will be sorted and returned
    //this is in case the original, unsorted array is also needed
+   T** array = new T* [numItems];
 
+   for(int i = 0; i < numItems; i++)
+   {
+      array[i] = items[i];
+   }
 
+   _quickSort(array, 0, numItems - 1, compare);
 
-
-
-
-
-
-
-
+   return array;
 }
 
 template < class T >
@@ -56,16 +59,9 @@ void Sort<T>::_quickSort(T** items, int first, int last, int (*compare) (T* one,
    //make the necessary partition and recursive calls for quick sort
    if (first < last)
    {
-
-
-
-
-
-
-
-
-
-
+      pivotIndex = partition(items, first, last, compare);
+      _quickSort(items, pivotIndex + 1, last, compare);
+      _quickSort(items, first, pivotIndex - 1, compare);
 
    }  
 }  
@@ -76,28 +72,37 @@ int Sort<T>::partition(T** items, int first, int last, int (*compare) (T* one, T
    //DO THIS
    //complete the partition method (Lomuto partition)
 
+
    //temp is used to swap elements in the array
    T* temp; 
 
    //initially, choosePivot does nothing           
    choosePivot(items, first, last); 
 
+   int pivot = first;
+   int lastS1 = first;
+   int comp;
+   for(int i = first + 1; i <= last; i++)
+   {
+      comp = (*compare) (items[i], items[pivot]);
+
+      if(comp < 0)
+      {
+         lastS1++;
+         temp = items[lastS1];
+         items[lastS1] = items[i];
+         items[i] = temp;
+      }
 
 
+    
+   }
 
+   temp = items[pivot];
+   items[pivot] = items[lastS1];
+   items[lastS1] = temp;
 
-
-
-
-
-
-
-
-
-
-
-
-     
+   return lastS1;
 
 }
 
@@ -107,12 +112,11 @@ void Sort<T>::choosePivot(T** items, int first, int last)
    //DO THIS
    //find a better item to be the partition than simply using the item in the first index
    //you will need to swap
+int mid = first + ((last - first)/ 2);
 
-
-
-
-
-
+T* temp = items[mid];
+items[mid] = items[first];
+items[first] = temp;
 
 }
 

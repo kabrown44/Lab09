@@ -4,6 +4,7 @@
 #include "Color.h"
 #include <gtkmm.h>
 
+// COMMENT
 class Point
 {
 
